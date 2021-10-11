@@ -50,6 +50,14 @@ abstract public class Computer {
         volumeLevel = 0;
     }
 
+    public int getVolumeLevel() {
+        return volumeLevel;
+    }
+
+    public void setVolumeLevel(int volumeLevel) {
+        this.volumeLevel = volumeLevel;
+    }
+
     public void switchOn() {
         System.out.println("SUPER - pole ustawiono na true");
         state = true;
@@ -64,8 +72,10 @@ abstract public class Computer {
     }
 
     public abstract int volumeUp();
+    public abstract int volumeUp(int newVolumeLevel);
 
-
+    public abstract int volumeDown();
+    public abstract int volumeDown(int newVolumeLevel);
 
 
 }

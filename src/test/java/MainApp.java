@@ -11,8 +11,11 @@ public class MainApp {
         Computer officeComputer = new PC("Office Computer", "HP", 500, 128);
         Computer gamingLaptop = new Laptop("XGames", "HP GAMES", 500, 256, 12);
 
-        System.out.println(officeComputer.volumeUp());
-        System.out.println(gamingLaptop.volumeUp());
+        officeComputer.volumeUp();
+
+        System.out.println(officeComputer.getVolumeLevel());
+        officeComputer.volumeUp(123);
+        System.out.println(officeComputer.getVolumeLevel());
 
 
 
