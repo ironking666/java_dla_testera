@@ -11,6 +11,13 @@ public class PC extends Computer{
     public void setCommutator(boolean commutator) {
         this.commutator = commutator;
     }
+    public void showComputerName() {
+        System.out.println(name);
+    }
+
+    public int volumeUp(){
+        return volumeLevel += 1;
+    }
 
     @Override
     public void switchOn() {
