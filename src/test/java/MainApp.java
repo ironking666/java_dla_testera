@@ -1,21 +1,18 @@
 import Utils.StringUtils;
-import computer.Computer;
-import computer.Laptop;
-import computer.PC;
+import computer.*;
 
 
 public class MainApp {
 
     public static void main(String[] args) {
 
-        Computer officeComputer = new PC("Office Computer", "HP", 500, 128);
-        Computer gamingLaptop = new Laptop("XGames", "HP GAMES", 500, 256, 12);
 
-        officeComputer.volumeUp();
+        Hdd hdd = new Hdd("Samsung", 500);
+        Ram ram = new Ram("GoodRAM", 128);
+        Computer mac = new Laptop("Mac","Pro", hdd, ram, 45);
+        System.out.println(mac.getRam().getSize());
 
-        System.out.println(officeComputer.getVolumeLevel());
-        officeComputer.volumeUp(123);
-        System.out.println(officeComputer.getVolumeLevel());
+
 
 
 
