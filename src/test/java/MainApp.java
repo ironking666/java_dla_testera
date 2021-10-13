@@ -4,6 +4,7 @@ import model.Bug;
 import model.BugReporter;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class MainApp {
@@ -11,32 +12,54 @@ public class MainApp {
     public static void main(String[] args) {
 
 
-        List<Bug> bugs = new ArrayList<>();
-        bugs.add(new Bug("Low", new BugReporter("Krzysiek", "Waliszewski", "iron@wp.pl"), 3));
-        bugs.add(new Bug("Medium", new BugReporter("Roman", "Kaliszewski", "iron@wp.pl"), 4));
-        bugs.add(new Bug("High", new BugReporter("Piotr", "Maliszewski", "iron@wp.pl"), 5));
-        bugs.add(new Bug("Low", new BugReporter("Krzysiek", "Waliszewski", "iron@wp.pl"), 3));
+        List<Computer> computers = new ArrayList<>();
+        computers.add(new Laptop("MB PRO 1", "PRO 1", new Hdd("HP", 500), new Ram("HP", 128), 100));
+        computers.add(new Laptop("MB PRO 2", "PRO 2", new Hdd("HP", 500), new Ram("HP", 128), 100));
+        computers.add(new Laptop("MB PRO 3", "PRO 3", new Hdd("HP", 256), new Ram("HP", 128), 100));
+        computers.add(new Laptop("MB PRO 4", "PRO 4", new Hdd("HP", 500), new Ram("HP", 128), 100));
+        computers.add(new PC("PC 1", "BBB", new Hdd("HP", 500), new Ram("HP", 128)));
+        computers.add(new PC("PC 1", "AAA", new Hdd("HP", 256), new Ram("HP", 256)));
+        computers.add(new PC("PC 3", "PRO 3", new Hdd("HP", 500), new Ram("HP", 128)));
 
-        for (Bug bug: bugs
-             ) {
-            System.out.println(bug.getBugDescription());
-        }
 
-        System.out.println("--- SET ---");
+        //1.
+        long count = computers.stream()
+                .filter(computer -> computer.getRam().getSize() > 128)
+                .count();
 
-        Set<Bug> bugSet = new HashSet<>(bugs);
+        System.out.println(count);
+        //2.
 
-        for (Bug bug: bugSet
-             ) {
-            System.out.println(bug.getBugDescription());
-        }
-        System.out.println("--- TREESET ---");
+        computers.stream()
+                .map(Computer::getType)
+                .forEach(System.out::println);
+        //3.
+        Computer computer = computers.stream()
+                .max(Comparator.comparingInt(comp -> comp.getRam().getSize()))
+                .orElseThrow(() -> new IllegalStateException("Can not find any computer"));
 
-        Set<Bug> bugTreeSet = new TreeSet<>(bugSet);
+        System.out.println(computer.getName());
 
-        for (Bug bug: bugTreeSet
+        //4.
+        List<Computer> collect = computers.stream()
+                .filter(comp -> comp.getHdd().getSize() < 500)
+                .collect(Collectors.toList());
+
+        for (Computer comp : collect
         ) {
-            System.out.println(bug.getBugDescription());
+            System.out.println(comp.getName() + " " + comp.getHdd());
+
+        }
+
+        //5.
+
+        List<Computer> collect1 = computers.stream()
+                .sorted(Comparator.comparing(Computer::getName).thenComparing(Computer::getType))
+                .collect(Collectors.toList());
+
+        for (Computer comp: collect1
+             ) {
+            System.out.println(comp.getName() + " " + comp.getType());
         }
 
 
